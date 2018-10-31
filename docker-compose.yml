@@ -1,26 +1,11 @@
-version: '2'
+version: '3.1'
 services:
-  https-portal:
-    image: steveltn/https-portal:1.0.0
-    ports:
-      - '8080:80'
-      - '443:443'
-    depends_on:
-      - nginx
-    links:
-      - nginx
-    restart: always
-    environment:
-      DOMAINS: 'babanba-n.iobb.net -> http://nginx'
-      # STAGE: 'production'
-      # FORCE_RENEW: 'true'
   nginx: &nginx
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     volumes:
-      - "html_data:/usr/share/nginx/html"
-      - "init_conf:/etc/nginx/conf.d/"
+      - "./init/:/etc/nginx/conf.d/"
     ports:
       - "80:80"
     depends_on:
@@ -34,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - "themes:/rails_app/themes"
+      - "./themes/:/rails_app/themes"
     depends_on:
       - mysql
     links:
@@ -46,31 +31,13 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      # - "./init/initdb.d/:/docker-entrypoint-initdb.d"
-      - "mysql-db:/var/lib/mysql"
+      - "./init/initdb.d/:/docker-entrypoint-initdb.d"
+      - "./mysql_data:/var/lib/mysql"
     environment:
       MYSQL_DATABASE: publify
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
       MYSQL_PASSWORD: password
 volumes:
-  init_conf:
-    driver_opts:
-      type: none
-      device:  /var/site/skyscraper/init
-      o: bind
-  mysql-db:
-    driver_opts:
-      type: none
-      device: /home/vagrant/docker/data/mysql
-      o: bind
-  html_data:
-    driver_opts:
-      type: none
-      device: /var/site/skyscraper/html_contents 
-      o: bind
-  themes:
-    driver_opts:
-      type: none
-      device: /var/site/skyscraper/themes
-      o: bind
+  mysql_data:
+    driver: local
