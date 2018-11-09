@@ -40,6 +40,19 @@ services:
       - "3000:3000"
     volumes:
       - "themes:/rails_app/themes"
+      - "upload_files:/rails_app/public/files/"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      RAILS_ENV: production
+  digital_root_hub: &digital_root_hub
+    build:
+      context: .
+      dockerfile: ./docker/digital_root_hub/Dockerfile
+    ports:
+      - "3001:3000"
     depends_on:
       - mysql
     links:
@@ -48,6 +61,7 @@ services:
       RAILS_ENV: production
   mysql: &mysql
     image: mysql:5.7.22
+    command: --max_allowed_packet=32505856
     ports:
       - "3306:3306"
     volumes:
@@ -68,6 +82,11 @@ volumes:
     driver_opts:
       type: none
       device: /home/vagrant/docker/data/mysql
+      o: bind
+  upload_files:
+    driver_opts:
+      type: none
+      device: /home/vagrant/docker/data/upload_files
       o: bind
   html_data:
     driver_opts:
