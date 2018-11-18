@@ -1,7 +1,7 @@
 FROM ruby:2.5.1
 
 RUN apt-get update  -y -qq &&\
-    apt-get install -y -qq vim-nox emacs-nox vim-nox less mysql-client redis-tools task-japanese locales sqlite3 golang
+    apt-get install -y -qq vim-nox emacs-nox vim-nox less mysql-client task-japanese locales sqlite3
 
 RUN echo "ja_JP.UTF-8 UTF-8" >> /etc/locale.gen
 RUN locale-gen
