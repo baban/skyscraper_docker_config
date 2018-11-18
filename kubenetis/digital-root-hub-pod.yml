@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: digital-root-hub
+spec:
+  type: ClusterIP
+  ports:
+  - name: "digital-root-hub-port"
+    protocol: 'TCP'
+    port: 3000
+    targetPort: 3000
+  selector:
+    app: skyscraper-app
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digital-root-hub
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyscraper-app
+  template:
+    metadata:
+      labels:
+        app: skyscraper-app
+    spec:
+      containers:
+        - name: skyscraper-digital-root-hub
+          image: babanban/skyscraper_digital_root_hub
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RAILS_ENV
+              value: "production"
