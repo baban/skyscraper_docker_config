@@ -1,20 +1,4 @@
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: publify
-spec:
-  type: ClusterIP
-  ports:
-  - name: "publify-port"
-    protocol: 'TCP'
-    port: 3000
-    targetPort: 3000
-  selector:
-    app: skyscraper-app
-status:
-  loadBalancer: {}
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

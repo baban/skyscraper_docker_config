@@ -3,6 +3,7 @@ login: &login
   host: mysql
   username: user
   password: password
+  pool: 3
 
 development:
   database: publify_dev
