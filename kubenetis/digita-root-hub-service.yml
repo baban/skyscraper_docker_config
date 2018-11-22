@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: digital-root-hub
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: "digital-root-hub-port"
     protocol: 'TCP'
