@@ -27,6 +27,7 @@ COPY publify/Gemfile /rails_app
 
 ARG RAILS_ENV
 ENV RAILS_ENV $RAILS_ENV
+ENV RAILS_SERVE_STATIC_FILES true
 
 COPY publify/Rakefile /rails_app/Rakefile
 COPY publify/config.ru /rails_app/config.ru
@@ -39,6 +40,7 @@ COPY publify/db /rails_app/db
 COPY publify/app/assets /rails_app/app/assets
 COPY publify/publify_core /rails_app/publify_core
 COPY publify/publify_textfilter_code /rails_app/publify_textfilter_code
+COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
 COPY database.yml /rails_app/config/database.yml
 
 RUN gem install bundler
