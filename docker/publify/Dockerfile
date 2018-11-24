@@ -30,10 +30,10 @@ ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 
 COPY publify/Gemfile /rails_app
-COPY publify/Gemfile.lock /rails_app
 COPY publify/Rakefile /rails_app/Rakefile
 COPY publify/config.ru /rails_app/config.ru
-COPY publify/config/master.key /rails_app/config/master.key
+COPY ./credentials.yml.enc /rails_app/config/credentials.yml.enc
+COPY ./master.key /rails_app/config/master.key
 COPY publify/app /rails_app/app
 COPY publify/app/assets /rails_app/app/assets
 COPY publify/bin /rails_app/bin
