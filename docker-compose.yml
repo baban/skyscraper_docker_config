@@ -30,10 +30,10 @@ services:
       - "80:80"
     depends_on:
       - publify
-      - digital_root_hub
+      - digital-root-hub
     links:
       - publify
-      - digital_root_hub
+      - digital-root-hub
   publify: &publify
     build:
       context: .
@@ -49,7 +49,7 @@ services:
       - mysql
     environment:
       RAILS_ENV: production
-  digital_root_hub: &digital_root_hub
+  digital-root-hub: &digital-root-hub
     build:
       context: .
       dockerfile: ./docker/digital_root_hub/Dockerfile
