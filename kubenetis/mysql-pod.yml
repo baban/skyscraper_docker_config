@@ -3,15 +3,15 @@ kind: StatefulSet
 metadata:
   name: mysql-statefulset
 spec:
-  serviceName: mysql
+  serviceName: skyscraper-mysql-server
   replicas: 1
   selector:
     matchLabels:
-      app: skyscraper-app
+      app: skyscraper-mysql-server
   template:
     metadata:
       labels:
-        app: skyscraper-app
+        app: skyscraper-mysql-server
     spec:
       containers:
         - name: mysql-container
