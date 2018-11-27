@@ -7,11 +7,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: skyscraper-app
+      app: skyscraper-publify
   template:
     metadata:
       labels:
-        app: skyscraper-app
+        app: skyscraper-publify
     spec:
       containers:
         - name: skyscraper-publify
