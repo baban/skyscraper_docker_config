@@ -32,8 +32,8 @@ ENV RAILS_LOG_TO_STDOUT true
 COPY publify/Gemfile /rails_app
 COPY publify/Rakefile /rails_app/Rakefile
 COPY publify/config.ru /rails_app/config.ru
-COPY ./credentials.yml.enc /rails_app/config/credentials.yml.enc
-COPY ./master.key /rails_app/config/master.key
+COPY ./init/publify/credentials.yml.enc /rails_app/config/credentials.yml.enc
+COPY ./init/publify/master.key /rails_app/config/master.key
 COPY publify/app /rails_app/app
 COPY publify/app/assets /rails_app/app/assets
 COPY publify/bin /rails_app/bin
@@ -44,12 +44,12 @@ COPY publify/public /rails_app/public
 COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
 COPY publify/publify_core /rails_app/publify_core
 COPY publify/publify_textfilter_code /rails_app/publify_textfilter_code
-COPY database.yml /rails_app/config/database.yml
+COPY ./init/publify/database.yml /rails_app/config/database.yml
 
 RUN gem install bundler
 RUN bundle install --path vendor/bundle
 RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
-COPY database.yml.mysql /rails_app/config/database.yml
+COPY ./init/publify/database.yml.mysql /rails_app/config/database.yml
 
 ADD . /rails_app
 
