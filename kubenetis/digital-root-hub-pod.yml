@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: skyscraper-digital-root-hub
-          image: babanban/skyscraper_digital_root_hub
+          image: localhost:5000/skyscraper_digital-root-hub
           ports:
             - containerPort: 3000
           env:

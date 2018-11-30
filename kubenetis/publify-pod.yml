@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: skyscraper-publify
-          image: babanban/skyscraper_publifyy
+          image: localhost:5000/skyscraper_publify
           ports:
             - containerPort: 3000
           env:

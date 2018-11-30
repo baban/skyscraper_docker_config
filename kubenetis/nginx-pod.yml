@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: skyscraper-nginx
-          image: babanban/skyscraper_nginx
+          image: localhost:5000/skyscraper_nginx
           ports:
             - containerPort: 80

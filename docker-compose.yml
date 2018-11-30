@@ -1,10 +1,12 @@
 version: '3.1'
 services:
   nginx: &nginx
-    image: "nginx:latest"
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
     volumes:
       - "./html_contents/:/usr/share/nginx/html"
-      - "./init/:/etc/nginx/conf.d/"
+      - "./init/nginx/:/etc/nginx/conf.d/"
     ports:
       - "80:80"
     depends_on:
