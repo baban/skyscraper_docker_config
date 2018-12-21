@@ -1,58 +1,51 @@
-FROM ruby:2.5.1
+FROM node:8.5.0-alpine as node
 
-RUN apt-get update  -y -qq &&\
-    apt-get install -y -qq vim-nox less mysql-client task-japanese locales sqlite3
+FROM ruby:2.5.3-alpine3.8
 
-RUN echo "ja_JP.UTF-8 UTF-8" >> /etc/locale.gen
-RUN locale-gen
-RUN update-locale LANG=ja_JP.UTF-8
-ENV LANG ja_JP.utf8
-RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+# busybox-suid for crontab
+RUN apk --update --no-cache add shadow sudo busybox-suid \
+                                build-base tzdata curl pcre execline vim optipng imagemagick \
+                                sqlite sqlite-dev mariadb-dev postgresql-dev postgresql-client iputils 
 
 EXPOSE 3000
 
-RUN mkdir /node_root && cd /node_root
-ENV NODEBREW_ROOT /node_root
-ENV NODE_ENV production
-ENV PATH $PATH:/node_root/current/bin
-RUN wget -q git.io/nodebrew && chmod +x nodebrew && ./nodebrew setup
-RUN /node_root/current/bin/nodebrew install-binary v10.5.0 &&\
-    /node_root/current/bin/nodebrew use v10.5.0
-RUN npm install -g yarn
+# install nodejs yarn
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
-RUN mkdir /rails_app && cd /rails_app
-
-WORKDIR /rails_app
+ARG BUNDLE_GITHUB__COM
+ENV BUNDLE_GITHUB__COM $BUNDLE_GITHUB__COM
 
 ARG RAILS_ENV
 ENV RAILS_ENV $RAILS_ENV
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 
-COPY publify/config.ru /rails_app/config.ru
-COPY publify/Gemfile /rails_app
-COPY publify/Rakefile /rails_app/Rakefile
-COPY publify/app /rails_app/app
-COPY publify/app/assets /rails_app/app/assets
-COPY publify/bin /rails_app/bin
-COPY publify/config /rails_app/config
-COPY publify/db /rails_app/db
-COPY publify/lib /rails_app/lib
-COPY publify/public /rails_app/public
-COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
-COPY publify/publify_core /rails_app/publify_core
-COPY publify/publify_textfilter_code /rails_app/publify_textfilter_code
-COPY publify/themes /rails_app/themes
-COPY ./init/publify/credentials.yml.enc /rails_app/config/credentials.yml.enc
-COPY ./init/publify/master.key /rails_app/config/master.key
-COPY ./init/publify/database.yml /rails_app/config/database.yml
+COPY publify/config.ru /config.ru
+COPY publify/Gemfile /
+COPY publify/Rakefile /Rakefile
+COPY publify/app /app
+COPY publify/app/assets /app/assets
+COPY publify/bin /bin
+COPY publify/config /config
+COPY publify/db /db
+COPY publify/lib /lib
+COPY publify/public /public
+COPY publify/publify_amazon_sidebar /publify_amazon_sidebar
+COPY publify/publify_core /publify_core
+COPY publify/publify_textfilter_code /publify_textfilter_code
+COPY publify/themes /themes
+COPY ./init/publify/credentials.yml.enc /config/credentials.yml.enc
+COPY ./init/publify/master.key /config/master.key
+COPY ./init/publify/database.yml /config/database.yml
 
 RUN gem install bundler
-RUN bundle install --path vendor/bundle
+RUN bundle install --without development test --path vendor/bundle
+COPY ./init/publify/database.yml.mysql /config/database.yml
 RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
-COPY ./init/publify/database.yml.mysql /rails_app/config/database.yml
 
-ADD . /rails_app
+ADD . /
 
 ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rails db:create db:migrate db:seed; RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
 CMD bundle exec puma -C config/puma.rb
