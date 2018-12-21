@@ -1,0 +1,51 @@
+FROM node:8.5.0-alpine
+
+FROM ruby:2.5.3-alpine3.8
+
+# busybox-suid for crontab
+RUN apk --update --no-cache add shadow sudo busybox-suid \
+                                build-base tzdata curl pcre execline vim optipng imagemagick \
+                                sqlite sqlite-dev mariadb-dev postgresql-dev postgresql-client iputils 
+
+EXPOSE 3000
+
+# install nodejs yarn
+COPY --from=node:8.5.0-alpine /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:8.5.0-alpine /usr/local/include/node /usr/local/include/node
+COPY --from=node:8.5.0-alpine /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+ARG BUNDLE_GITHUB__COM
+ENV BUNDLE_GITHUB__COM $BUNDLE_GITHUB__COM
+
+ARG RAILS_ENV
+ENV RAILS_ENV $RAILS_ENV
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+
+COPY publify/config.ru /config.ru
+COPY publify/Gemfile /
+COPY publify/Rakefile /Rakefile
+COPY publify/app /app
+COPY publify/app/assets /app/assets
+COPY publify/bin /bin
+COPY publify/config /config
+COPY publify/db /db
+COPY publify/lib /lib
+COPY publify/public /public
+COPY publify/publify_amazon_sidebar /publify_amazon_sidebar
+COPY publify/publify_core /publify_core
+COPY publify/publify_textfilter_code /publify_textfilter_code
+COPY publify/themes /themes
+COPY ./init/publify/credentials.yml.enc /config/credentials.yml.enc
+COPY ./init/publify/master.key /config/master.key
+COPY ./init/publify/database.yml /config/database.yml
+
+RUN gem install bundler
+RUN bundle install --without development test --path vendor/bundle
+COPY ./init/publify/database.yml.mysql /config/database.yml
+RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
+
+ADD . /
+
+ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rails db:create db:migrate db:seed; RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
+CMD bundle exec puma -C config/puma.rb
