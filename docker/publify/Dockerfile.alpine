@@ -1,4 +1,4 @@
-FROM node:8.5.0-alpine
+FROM node:8.5.0-alpine as node
 
 FROM ruby:2.5.3-alpine3.8
 
@@ -10,9 +10,9 @@ RUN apk --update --no-cache add shadow sudo busybox-suid \
 EXPOSE 3000
 
 # install nodejs yarn
-COPY --from=node:8.5.0-alpine /usr/local/bin/node /usr/local/bin/node
-COPY --from=node:8.5.0-alpine /usr/local/include/node /usr/local/include/node
-COPY --from=node:8.5.0-alpine /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 ARG BUNDLE_GITHUB__COM
 ENV BUNDLE_GITHUB__COM $BUNDLE_GITHUB__COM

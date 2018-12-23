@@ -1,7 +1,8 @@
-FROM ruby:2.3.8
+FROM ruby:2.3.8-slim
 
 RUN apt-get update  -y -qq &&\
-    apt-get install -y -qq vim-nox less mysql-client task-japanese locales sqlite3
+    apt-get install -y -qq vim-nox less mysql-client task-japanese locales sqlite3 \
+                           build-essential imagemagick default-libmysqlclient-dev
 
 RUN echo "ja_JP.UTF-8 UTF-8" >> /etc/locale.gen
 RUN locale-gen
@@ -34,9 +35,6 @@ COPY digital_root_hub/app/assets /rails_app/app/assets
 
 RUN gem install bundler
 RUN bundle install --full-index
-# RUN RAILS_ENV=$RAILS_ENV bundle exec rake db:create db:migrate db:seed
-COPY init/digital_root_hub/database.yml /rails_app/config/database.yml
-# RUN bundle exec rake assets:precompile RAILS_ENV=$RAILS_ENV
 COPY init/digital_root_hub/database.yml /rails_app/config/database.yml
 
 ADD digital_root_hub /rails_app
