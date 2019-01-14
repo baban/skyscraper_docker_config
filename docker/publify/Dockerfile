@@ -1,4 +1,4 @@
-FROM ruby:2.5.1
+FROM ruby:2.6.0
 
 RUN apt-get update  -y -qq &&\
     apt-get install -y -qq vim-nox less mysql-client task-japanese locales sqlite3
@@ -52,7 +52,7 @@ RUN bundle install --path vendor/bundle
 RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
 COPY ./init/publify/database.yml.mysql /rails_app/config/database.yml
 
-ADD . /rails_app
+ADD publify /rails_app
 
 ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rails db:create db:migrate db:seed; RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
 CMD bundle exec puma -C config/puma.rb

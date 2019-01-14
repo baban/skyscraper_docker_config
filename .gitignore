@@ -1,7 +1,7 @@
 registry_data
 mysql_data
-./files
-./publify
-./themes
-./html_contents
-./digital_root_hub
+files
+publify
+themes
+html_contents
+digital_root_hub

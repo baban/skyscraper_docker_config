@@ -1,0 +1,8 @@
+/docker
+/files
+/initdb
+/kubenetis
+/mysql_data
+/registry_data
+/themes
+.git
