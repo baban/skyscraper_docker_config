@@ -1,7 +1,8 @@
 FROM ruby:2.6.0
 
 RUN apt-get update  -y -qq &&\
-    apt-get install -y -qq vim-nox less mysql-client task-japanese locales sqlite3
+    apt-get install -y -qq vim-nox less mysql-client task-japanese locales sqlite3 \
+                           build-essential default-libmysqlclient-dev
 
 RUN echo "ja_JP.UTF-8 UTF-8" >> /etc/locale.gen
 RUN locale-gen
