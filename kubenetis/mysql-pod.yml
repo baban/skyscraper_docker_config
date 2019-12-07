@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-statefulset
+spec:
+  serviceName: mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skyscraper-mysql-server
+  template:
+    metadata:
+      labels:
+        app: skyscraper-mysql-server
+    spec:
+      containers:
+        - name: mysql-container
+          image: mysql:5.7.22
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+          - name: mysqldata
+            mountPath: /var/lib/mysql
+          env:
+            - name: MYSQL_DATABASE
+              value: publify
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_USER
+              value: user
+            - name: MYSQL_PASSWORD
+              value: password
+  volumeClaimTemplates:
+  - metadata:
+      name: mysqldata
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1G

@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digital-root-hub
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyscraper-links
+  template:
+    metadata:
+      labels:
+        app: skyscraper-links
+    spec:
+      containers:
+        - name: skyscraper-digital-root-hub
+          image: localhost:5000/skyscraper_digital-root-hub
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RAILS_ENV
+              value: "production"
