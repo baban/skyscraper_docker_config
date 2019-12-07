@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publify
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyscraper-publify
+  template:
+    metadata:
+      labels:
+        app: skyscraper-publify
+    spec:
+      containers:
+        - name: skyscraper-publify
+          image: localhost:5000/skyscraper_publify
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RAILS_ENV
+              value: "production"
