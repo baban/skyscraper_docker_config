@@ -1,21 +1,13 @@
-FROM node:10.5.0-alpine as node
-
-FROM ruby:2.6.5-alpine3.10 as builder
+FROM ruby:2.6.5-alpine3.10
 
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
-  sqlite sqlite-dev postgresql postgresql-dev
+  sqlite sqlite-dev postgresql postgresql-dev nodejs npm
 
 RUN useradd rails -u 3333 -d /rails_app && \
     mkdir -p /rails_app && \
     chown rails.rails -R /rails_app
 
 WORKDIR /rails_app
-
-COPY --from=node /usr/local/bin/node /usr/local/bin/node
-COPY --from=node /usr/local/include/node /usr/local/include/node
-COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
-RUN ln -s /usr/local/bin/node /usr/local/bin/nodejs && \
-    ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 COPY publify/Gemfile /rails_app
 
