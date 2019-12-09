@@ -3,9 +3,7 @@ FROM ruby:2.6.5-alpine3.10
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
   sqlite sqlite-dev postgresql postgresql-dev nodejs npm
 
-RUN useradd rails -u 3333 -d /rails_app && \
-    mkdir -p /rails_app && \
-    chown rails.rails -R /rails_app
+RUN mkdir -p /rails_app
 
 WORKDIR /rails_app
 
@@ -22,7 +20,8 @@ COPY publify/publify_textfilter_code /rails_app/publify_textfilter_code
 COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
 COPY docker/publify/database.yml.mysql /rails_app/config/database.yml
 
-RUN bundle install --path vendor/bundle --binstubs .bundle -j4 --without development test
+RUN bundle install --path vendor/bundle --binstubs .bundle -j4 --without development test --path vendor/bundle && \
+    find vendor/bundle/ruby -path '*/gems/*/ext/*/Makefile' -exec dirname {} \; | xargs -n1 -P$(nproc) -I{} make -C {} clean
 
 ARG RAILS_ENV
 ENV RAILS_ENV $RAILS_ENV
@@ -33,9 +32,11 @@ COPY publify/app/assets /rails_app/app/assets
 COPY docker/publify/master.key /rails_app/config/
 COPY docker/publify/credentials.yml.enc /rails_app/config/
 COPY docker/publify/app/assets/config /rails_app/app/assets/config
-ADD ./publify /rails_app/
+COPY docker/publify/config /rails_app/config
 
 RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
+
+ADD ./publify /rails_app/
 
 EXPOSE 3000
 
