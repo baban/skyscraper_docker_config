@@ -24,8 +24,8 @@ services:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     volumes:
-      - "html_data:/usr/share/nginx/html"
-      - "init_conf:/etc/nginx/conf.d/"
+      - "./html_contents/:/usr/share/nginx/html"
+      - "./init/nginx/:/etc/nginx/conf.d/"
     ports:
       - "80:80"
     depends_on:
