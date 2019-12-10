@@ -5,3 +5,5 @@ files
 /themes
 /html_contents
 /digital_root_hub
+
+docker-compose.yml
