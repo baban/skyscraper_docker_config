@@ -33,6 +33,7 @@ COPY docker/publify/master.key /rails_app/config/
 COPY docker/publify/credentials.yml.enc /rails_app/config/
 COPY docker/publify/app/assets/config /rails_app/app/assets/config
 COPY docker/publify/config /rails_app/config
+COPY init/publify/app/mailers/application_mailer.rb /rails_app/app/mailers/
 
 RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
 
