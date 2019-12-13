@@ -32,16 +32,15 @@ COPY digital_root_hub/script /rails_app/script
 COPY digital_root_hub/vendor /rails_app/vendor
 COPY digital_root_hub/app/assets /rails_app/app/assets
 
-RUN gem install bundler
+RUN gem install bundler --version 1.16.6
 RUN bundle install --full-index
 # RUN RAILS_ENV=$RAILS_ENV bundle exec rake db:create db:migrate db:seed
-COPY database.yml /rails_app/config/database.yml
 # RUN bundle exec rake assets:precompile RAILS_ENV=$RAILS_ENV
 COPY init/digital_root_hub/database.yml /rails_app/config/database.yml
 
 ADD digital_root_hub /rails_app
 
 # ENTRYPOINT ping 0.0.0.0
-# CMD ping 0.0.0.0
+#CMD ping 0.0.0.0
 ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rake db:create db:migrate db:seed; bundle exec rails server -e $RAILS_ENV
 CMD bundle exec rails server -e $RAILS_ENV
