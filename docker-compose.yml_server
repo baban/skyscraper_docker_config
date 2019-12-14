@@ -11,10 +11,8 @@ services:
       - "80:80"
     depends_on:
       - publify
-      - digital-root-hub
     links:
       - publify
-      - digital-root-hub
   publify: &publify
     build:
       context: .
