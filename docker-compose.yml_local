@@ -11,10 +11,8 @@ services:
       - "80:80"
     depends_on:
       - publify
-      - digital-root-hub
     links:
       - publify
-      - digital-root-hub
   publify: &publify
     build:
       context: .
@@ -30,24 +28,12 @@ services:
       - mysql
     environment:
       RAILS_ENV: production
-  digital-root-hub: &digital-root-hub
-    build:
-      context: .
-      dockerfile: ./docker/digital_root_hub/Dockerfile
-    ports:
-      - "3001:3000"
-    depends_on:
-      - mysql
-    links:
-      - mysql
-    environment:
-      RAILS_ENV: production
   mysql: &mysql
     image: mysql:5.7.22
     ports:
       - "3306:3306"
     volumes:
-      - "./init/initdb.d/:/docker-entrypoint-initdb.d"
+      # - "./init/initdb.d/:/docker-entrypoint-initdb.d"
       - "./mysql_data:/var/lib/mysql"
     environment:
       MYSQL_DATABASE: publify

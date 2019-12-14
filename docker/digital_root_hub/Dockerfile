@@ -40,7 +40,7 @@ COPY init/digital_root_hub/database.yml /rails_app/config/database.yml
 
 ADD digital_root_hub /rails_app
 
-# ENTRYPOINT ping 0.0.0.0
-#CMD ping 0.0.0.0
-ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rake db:create db:migrate db:seed; bundle exec rails server -e $RAILS_ENV
-CMD bundle exec rails server -e $RAILS_ENV
+ENTRYPOINT ping 0.0.0.0
+CMD ping 0.0.0.0
+#ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rake db:create db:migrate; bundle exec rails s -e $RAILS_ENV
+#CMD bundle exec rails s -e $RAILS_ENV

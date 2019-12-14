@@ -1,24 +1,5 @@
 version: '2'
 services:
-  https-portal:
-    image: steveltn/https-portal:1.0.0
-    ports:
-      - '8080:80'
-      - '443:443'
-    depends_on:
-      - nginx
-    links:
-      - nginx
-    restart: always
-    environment:
-      STAGE: local
-      DOMAINS: 'babanba-n.iobb.net -> http://nginx/'
-      # STAGE: 'production'
-      # FORCE_RENEW: 'true'
-    volumes:
-    # - /var/run/docker.sock:/var/run/docker.sock:ro
-    - ssl-certs:/var/lib/https-portal
-    - vhosts:/var/www/vhosts
   nginx: &nginx
     build:
       context: .
@@ -43,18 +24,6 @@ services:
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
-    depends_on:
-      - mysql
-    links:
-      - mysql
-    environment:
-      RAILS_ENV: production
-  digital-root-hub: &digital-root-hub
-    build:
-      context: .
-      dockerfile: ./docker/digital_root_hub/Dockerfile
-    ports:
-      - "3001:3000"
     depends_on:
       - mysql
     links:
@@ -100,7 +69,3 @@ volumes:
       type: none
       device: /var/site/skyscraper/themes
       o: bind
-  # SSL証明書
-  ssl-certs:
-  # 静的ウェブサイト
-  vhosts:
