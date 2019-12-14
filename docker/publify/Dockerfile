@@ -25,6 +25,7 @@ RUN bundle install --path vendor/bundle --binstubs .bundle -j4 --without develop
 
 ARG RAILS_ENV
 ENV RAILS_ENV $RAILS_ENV
+ENV RAILS_SERVE_STATIC_FILES true
 
 COPY publify/app /rails_app/app
 COPY publify/app/assets /rails_app/app/assets
