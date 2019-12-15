@@ -1,0 +1,1 @@
+/ext/conf/pukiwiki.ini.php
