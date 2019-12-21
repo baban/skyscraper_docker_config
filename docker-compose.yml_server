@@ -11,8 +11,10 @@ services:
       - "80:80"
     depends_on:
       - publify
+      - mad-wiki
     links:
       - publify
+      - mad-wiki
   publify: &publify
     build:
       context: .
@@ -28,13 +30,20 @@ services:
       - mysql
     environment:
       RAILS_ENV: production
+  mad-wiki: &mad-wiki
+    build:
+      context: .
+      dockerfile: ./docker/mad_wiki/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - "mad_wiki_data:/var/www/wiki/"
   mysql: &mysql
     image: mysql:5.7.22
     command: --max_allowed_packet=32505856
     ports:
       - "3306:3306"
     volumes:
-      # - "./init/initdb.d/:/docker-entrypoint-initdb.d"
       - "mysql-db:/var/lib/mysql"
     environment:
       MYSQL_DATABASE: publify
@@ -66,4 +75,9 @@ volumes:
     driver_opts:
       type: none
       device: /var/site/skyscraper/themes
+      o: bind
+  mad_wiki_data:
+    driver_opts:
+      type: none
+      device: /home/vagrant/docker/data/upload_files
       o: bind
