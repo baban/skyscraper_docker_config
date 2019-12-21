@@ -79,5 +79,5 @@ volumes:
   mad_wiki_data:
     driver_opts:
       type: none
-      device: /home/vagrant/docker/data/upload_files
+      device: /home/vagrant/docker/data/wiki_backup
       o: bind
