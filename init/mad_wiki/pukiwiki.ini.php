@@ -1,1 +1,1 @@
-/ext/conf/pukiwiki.ini.php
+D:/ext/conf/pukiwiki.ini.php
