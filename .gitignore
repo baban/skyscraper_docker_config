@@ -5,7 +5,6 @@ files
 /themes
 /html_contents
 /digital_root_hub
-/pyukiwiki-0.2.0-p3-full-utf8
 /wiki_backup
 
 docker-compose.yml
