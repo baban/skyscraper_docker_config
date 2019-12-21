@@ -37,7 +37,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - "mad_wiki_data:/var/www/wiki/"
+      - "mad_wiki_backup:/var/www/wiki/"
   mysql: &mysql
     image: mysql:5.7.22
     command: --max_allowed_packet=32505856
@@ -76,7 +76,7 @@ volumes:
       type: none
       device: /var/site/skyscraper/themes
       o: bind
-  mad_wiki_data:
+  mad_wiki_backup:
     driver_opts:
       type: none
       device: /home/vagrant/docker/data/wiki_backup
