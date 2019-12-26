@@ -37,7 +37,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - "mad_wiki_backup:/var/www/wiki/"
+      - "mad_wiki_backup:/ext/"
   mysql: &mysql
     image: mysql:5.7.22
     command: --max_allowed_packet=32505856

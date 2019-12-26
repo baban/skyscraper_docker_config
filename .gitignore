@@ -6,5 +6,6 @@ files
 /html_contents
 /digital_root_hub
 /wiki_backup
+/wiki_data
 
 docker-compose.yml
