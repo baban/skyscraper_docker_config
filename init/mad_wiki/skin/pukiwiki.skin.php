@@ -71,6 +71,15 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
  <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo $link['rss'] ?>" /><?php // RSS auto-discovery ?>
  <script type="text/javascript" src="skin/main.js" defer></script>
  <script type="text/javascript" src="skin/search2.js" defer></script>
+ <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155015748-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-155015748-1');
+	</script>
 
 <?php echo $head_tag ?>
 </head>
