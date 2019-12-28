@@ -110,7 +110,7 @@ default  :
 /////////////////////////////////////////////////
 // Title of your Wikisite (Name this)
 // Also used as RSS feed's channel name etc
-$page_title = 'PukiWiki';
+$page_title = 'MadWiki -Imagination-';
 
 // Specify PukiWiki URL (default: auto)
 $script = 'http://babanba-n.iobb.net/wiki/';
@@ -122,7 +122,7 @@ $script = 'http://babanba-n.iobb.net/wiki/';
 $modifier = 'anonymous';
 
 // Site admin's Web page (CHANGE THIS)
-$modifierlink = 'http://pukiwiki.example.com/';
+$modifierlink = 'http://babanba-n.iobb.net/wiki/';
 
 // Default page name
 $defaultpage  = 'FrontPage';     // Top / Default page
@@ -176,10 +176,10 @@ $notimeupdate = 1;
 // Admin password for this Wikisite
 
 // Default: always fail
-$adminpass = '{x-php-md5}!';
+//$adminpass = '{x-php-md5}!';
 
 // Sample:
-//$adminpass = 'pass'; // Cleartext
+$adminpass = 'pass'; // Cleartext
 //$adminpass = '{x-php-md5}1a1dc91c907325c69271ddf0c944bc72'; // PHP md5()  'pass'
 //$adminpass = '{CRYPT}$1$AR.Gk94x$uCe8fUUGMfxAPH83psCZG/';   // LDAP CRYPT 'pass'
 //$adminpass = '{MD5}Gh3JHJBzJcaScd3wyUS8cg==';               // LDAP MD5   'pass'
