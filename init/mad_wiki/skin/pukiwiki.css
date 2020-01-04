@@ -356,7 +356,13 @@ strong.word9 {
 
 @media screen and (max-width: 720px) {
   #external {
-    width: calc(100%);
+    width: 100%;
+  }
+  aside.menubar {
+    width: 100%;
+  }
+  aside.menubar ul > li {
+    display: inline-block;
   }
 }
 
@@ -366,10 +372,10 @@ strong.word9 {
   }
   #body {
     flex: 2;
-    width: calc(100% - 9.5em);
+    width: calc(100% - 15.5em);
   }
   aside.menubar {
-    width:9em;
+    width: 12em;
     vertical-align:top;
   }
 }
@@ -391,7 +397,6 @@ aside.menubar {
 }
 
 div#menubar {
-  width:9em;
   padding:0px;
   margin:4px;
   word-break:break-all;
