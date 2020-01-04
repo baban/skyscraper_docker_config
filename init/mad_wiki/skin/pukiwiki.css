@@ -372,7 +372,7 @@ strong.word9 {
   }
   #body {
     flex: 2;
-    width: calc(100% - 15.5em);
+    width: calc(100% - 12.5em);
   }
   aside.menubar {
     width: 12em;
