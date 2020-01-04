@@ -341,6 +341,39 @@ strong.word9 {
   clear:both;
 }
 
+#external {
+  flex-direction: row;
+  align-items: stretch;
+  width: calc(100%);
+}
+
+#external:after {
+  content: "";
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+@media screen and (max-width: 720px) {
+  #external {
+    width: calc(100%);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  main {
+    display: flex;
+  }
+  #body {
+    flex: 2;
+    width: calc(100% - 9.5em);
+  }
+  aside.menubar {
+    width:9em;
+    vertical-align:top;
+  }
+}
+
 /* pukiwiki.skin.php */
 div#header {
   padding:0px;
@@ -353,8 +386,7 @@ div#navigator {
   margin:0px;
 }
 
-td.menubar {
-  width:9em;
+aside.menubar {
   vertical-align:top;
 }
 

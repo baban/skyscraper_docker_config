@@ -82,10 +82,11 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 	</script>
 
 <?php echo $head_tag ?>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <?php echo $html_scripting_data ?>
-<div id="header">
+<header id="header">
  <a href="<?php echo $link['top'] ?>"><img id="logo" src="<?php echo IMAGE_DIR . $image['logo'] ?>" width="80" height="80" alt="[PukiWiki]" title="[PukiWiki]" /></a>
 
  <h1 class="title"><?php echo $page ?></h1>
@@ -100,7 +101,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
  <?php } ?>
 <?php } ?>
 
-</div>
+</header>
 
 <div id="navigator">
 <?php if(PKWK_SKIN_SHOW_NAVBAR) { ?>
@@ -162,20 +163,20 @@ function _navigator($key, $value = '', $javascript = ''){
 
 <?php echo $hr ?>
 
-<?php if ($menu !== FALSE) { ?>
-<table border="0" style="width:100%">
- <tr>
-  <td class="menubar">
-   <div id="menubar"><?php echo $menu ?></div>
-  </td>
-  <td valign="top">
-   <div id="body"><?php echo $body ?></div>
-  </td>
- </tr>
-</table>
-<?php } else { ?>
-<div id="body"><?php echo $body ?></div>
-<?php } ?>
+<section id="external">
+	<?php if ($menu !== FALSE) { ?>
+		<main>
+			<aside class="menubar">
+				<div id="menubar"><?php echo $menu ?></div>
+			</aside>
+			<div id="body"><?php echo $body ?></div>
+		</main>
+	<?php } else { ?>
+		<main>
+			<div id="body"><?php echo $body ?></div>
+		</main>
+	<?php } ?>
+</section>
 
 <?php if ($notes != '') { ?>
 <div id="note"><?php echo $notes ?></div>
@@ -274,12 +275,12 @@ function _toolbar($key, $x = 20, $y = 20){
 <div id="related">Link: <?php echo $related ?></div>
 <?php } ?>
 
-<div id="footer">
+<footer id="footer">
  Site admin: <a href="<?php echo $modifierlink ?>"><?php echo $modifier ?></a>
  <p>
  <?php echo S_COPYRIGHT ?>.
  Powered by PHP <?php echo PHP_VERSION ?>. HTML convert time: <?php echo elapsedtime() ?> sec.
  </p>
-</div>
+</footer>
 </body>
 </html>
