@@ -342,9 +342,7 @@ strong.word9 {
 }
 
 #external {
-  flex-direction: row;
-  align-items: stretch;
-  width: calc(100%);
+  width: 100%;
 }
 
 #external:after {
@@ -355,9 +353,6 @@ strong.word9 {
 }
 
 @media screen and (max-width: 720px) {
-  #external {
-    width: 100%;
-  }
   aside.menubar {
     width: 100%;
   }
@@ -366,16 +361,20 @@ strong.word9 {
   }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 720px) {
+  #external {
+    display: table;
+  }
   main {
-    display: flex;
+    display: table-row;
   }
   #body {
-    flex: 2;
-    width: calc(100% - 12.5em);
+    display: table-cell;
+    width: calc(100% - 11.5em);
   }
   aside.menubar {
-    width: 12em;
+    display: table-cell;
+    width: 11em;
     vertical-align:top;
   }
 }
