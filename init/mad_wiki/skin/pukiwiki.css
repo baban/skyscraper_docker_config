@@ -359,6 +359,9 @@ strong.word9 {
   aside.menubar ul > li {
     display: inline-block;
   }
+  aside.menubar ul > li:before {
+    content: "◆";
+  }
 }
 
 @media screen and (min-width: 720px) {
