@@ -40,7 +40,7 @@ services:
       - "mad_wiki_backup:/ext/"
   mysql: &mysql
     image: mysql:5.7.22
-    command: --max_allowed_packet=32505856
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci　--max_allowed_packet=32505856
     ports:
       - "3306:3306"
     volumes:
