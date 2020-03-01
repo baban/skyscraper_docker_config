@@ -4,6 +4,9 @@ login: &login
   username: user
   password: password
   pool: 3
+  charset: utf8mb4
+  collation: utf8mb4_bin  
+  encoding: utf8mb4
 
 development:
   database: publify_dev
