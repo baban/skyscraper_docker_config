@@ -41,7 +41,7 @@ services:
       - "./init/mad_wiki/skin/:/var/www/skin/"
   mysql: &mysql
     image: mysql:5.7.22
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --max_allowed_packet=32M
     ports:
       - "3306:3306"
     volumes:
