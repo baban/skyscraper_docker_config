@@ -3,6 +3,10 @@ FROM ruby:2.6.5-alpine3.10
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
   sqlite sqlite-dev postgresql postgresql-dev nodejs npm
 
+RUN apk add --update --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    apk del --purge tzdata
+
 RUN mkdir -p /rails_app
 
 WORKDIR /rails_app
@@ -33,7 +37,7 @@ COPY publify/app/assets /rails_app/app/assets
 COPY docker/publify/master.key /rails_app/config/
 COPY docker/publify/credentials.yml.enc /rails_app/config/
 COPY docker/publify/app/assets/config /rails_app/app/assets/config
-COPY docker/publify/config /rails_app/config
+COPY docker/publify/config/application.rb /rails_app/config
 COPY init/publify/app/mailers/application_mailer.rb /rails_app/app/mailers/
 
 ADD ./publify /rails_app/
