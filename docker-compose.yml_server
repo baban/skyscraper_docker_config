@@ -21,6 +21,11 @@ services:
       dockerfile: ./docker/publify/Dockerfile
     ports:
       - "3000:3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
@@ -36,6 +41,11 @@ services:
       dockerfile: ./docker/mad_wiki/Dockerfile
     ports:
       - "8080:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     volumes:
       - "mad_wiki_backup:/ext/"
   mysql: &mysql
