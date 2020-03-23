@@ -12,6 +12,11 @@ services:
     depends_on:
       - publify
       - mad-wiki
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
     links:
       - publify
       - mad-wiki
@@ -21,16 +26,16 @@ services:
       dockerfile: ./docker/publify/Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      - mysql
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
-        max-file: "3"
+        max-file: "10"
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
-    depends_on:
-      - mysql
     links:
       - mysql
     environment:
@@ -45,7 +50,7 @@ services:
       driver: "json-file"
       options:
         max-size: "10m"
-        max-file: "3"
+        max-file: "10"
     volumes:
       - "mad_wiki_backup:/ext/"
   mysql: &mysql
