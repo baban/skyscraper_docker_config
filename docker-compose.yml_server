@@ -55,8 +55,7 @@ services:
       - "mad_wiki_backup:/ext/"
   mysql: &mysql
     image: mysql:5.7.22
-    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --max_allowed_packet=32M
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --max_allowed_packet=100M
     ports:
       - "3306:3306"
     volumes:
@@ -64,8 +63,8 @@ services:
     environment:
       MYSQL_DATABASE: publify
       MYSQL_ROOT_PASSWORD: svc2027
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: baban
+      MYSQL_PASSWORD: svc2027
 volumes:
   init_conf:
     driver_opts:

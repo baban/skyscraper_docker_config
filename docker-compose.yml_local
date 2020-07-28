@@ -59,8 +59,8 @@ services:
     environment:
       MYSQL_DATABASE: publify
       MYSQL_ROOT_PASSWORD: svc2027
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: baban
+      MYSQL_PASSWORD: svc2027
 volumes:
   mysql_data:
     driver: local

@@ -1,8 +1,8 @@
 login: &login
   adapter: mysql2
   host: mysql
-  username: user
-  password: password
+  username: baban
+  password: svc2027
   pool: 3
   charset: utf8mb4
 
