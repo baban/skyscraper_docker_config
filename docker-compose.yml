@@ -1,0 +1,66 @@
+version: '3.2'
+services:
+  nginx: &nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - "./html_contents/:/usr/share/nginx/html"
+      - "./init/nginx/:/etc/nginx/conf.d/"
+    ports:
+      - "80:80"
+    depends_on:
+      - publify
+      - mad-wiki
+    links:
+      - publify
+      - mad-wiki
+  publify: &publify
+    build:
+      context: .
+      dockerfile: ./docker/publify/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./themes/:/rails_app/themes"
+      - "./files/:/rails_app/public/files/"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    environment:
+      RAILS_ENV: production
+    logging:
+      driver: "json-file" # defaults if not specified
+      options:
+        max-size: "10m"
+        max-file: "3"
+  mad-wiki: &mad-wiki
+    build:
+      context: .
+      dockerfile: ./docker/mad_wiki/Dockerfile
+    ports:
+      - "8080:80"
+    logging:
+      driver: "json-file" # defaults if not specified
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - "./wiki_data/:/ext/"
+      - "./init/mad_wiki/skin/:/var/www/skin/"
+  mysql: &mysql
+    image: mysql:5.7.22
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --max_allowed_packet=32M
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: publify
+      MYSQL_ROOT_PASSWORD: svc2027
+      MYSQL_USER: baban
+      MYSQL_PASSWORD: svc2027
+volumes:
+  mysql_data:
+    driver: local
+  wiki_data:
+    driver: local
