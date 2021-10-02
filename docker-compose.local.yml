@@ -3,15 +3,15 @@ services:
   nginx: &nginx
     volumes:
       - "./html_contents/:/usr/share/nginx/html"
-      - "./init/nginx/:/etc/nginx/conf.d/"
+      - "./init/nginx/:/etc/nginx/conf.d"
   publify: &publify
     volumes:
       - "./themes/:/rails_app/themes"
-      - "./files/:/rails_app/public/files/"
+      - "./files/:/rails_app/public/files"
   mad-wiki: &mad-wiki
     volumes:
-      - "./wiki_data/:/ext/"
-      - "./init/mad_wiki/skin/:/var/www/skin/"
+       - "./wiki_data/:/ext"
+       - "./init/mad_wiki/skin/:/var/www/skin"
   mysql: &mysql
     volumes:
       - "./mysql_data:/var/lib/mysql"

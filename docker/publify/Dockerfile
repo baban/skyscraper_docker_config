@@ -8,6 +8,7 @@ RUN apk add --update --no-cache tzdata && \
     apk del --purge tzdata
 
 RUN mkdir -p /rails_app
+RUN mkdir -p /rails_app/tmp/pids/
 
 WORKDIR /rails_app
 
