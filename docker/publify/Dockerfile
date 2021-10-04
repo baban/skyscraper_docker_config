@@ -8,7 +8,6 @@ RUN apk add --update --no-cache tzdata && \
     apk del --purge tzdata
 
 RUN mkdir -p /rails_app
-RUN mkdir -p /rails_app/tmp/pids/
 
 WORKDIR /rails_app
 
@@ -47,8 +46,8 @@ RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
 
 EXPOSE 3000
 
+# pumaが起動しなくなるエラー対策
 RUN mkdir -p /rails_app/tmp/pids/
 RUN ln -sfn /dev/stdout log/production.log && ln -sfn /dev/stdout log/staging.log
-# ENTRYPOINT ping 0.0.0.0 
 ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rails db:create db:migrate db:seed; RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
 CMD RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
