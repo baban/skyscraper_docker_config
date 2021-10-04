@@ -2,19 +2,19 @@ version: '3.2'
 services:
   nginx: &nginx
     volumes:
-      - "./html_contents/:/usr/share/nginx/html"
-      - "./init/nginx/:/etc/nginx/conf.d"
+      - ./html_contents/:/usr/share/nginx/html
+      - ./init/nginx/:/etc/nginx/conf.d
   publify: &publify
     volumes:
-      - "./themes/:/rails_app/themes"
-      - "./files/:/rails_app/public/files"
+      - ./themes/:/rails_app/themes
+      - ./files/:/rails_app/public/files
   mad-wiki: &mad-wiki
     volumes:
-       - "./wiki_data/:/ext"
-       - "./init/mad_wiki/skin/:/var/www/skin"
+       - ./wiki_data/:/ext
+       - ./init/mad_wiki/skin/:/var/www/skin
   mysql: &mysql
     volumes:
-      - "./mysql_data:/var/lib/mysql"
+      - ./mysql_data:/var/lib/mysql
 volumes:
   mysql_data:
     driver: local
