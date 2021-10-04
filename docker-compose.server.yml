@@ -8,6 +8,7 @@ services:
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
+      - /rails_aoo/tmp/
   mad-wiki: &mad-wiki
     volumes:
       - "mad_wiki_backup:/ext/"

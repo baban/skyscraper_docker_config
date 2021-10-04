@@ -46,6 +46,8 @@ RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
 
 EXPOSE 3000
 
+RUN mkdir -p /rails_app/tmp/pids/
 RUN ln -sfn /dev/stdout log/production.log && ln -sfn /dev/stdout log/staging.log
+# ENTRYPOINT ping 0.0.0.0 
 ENTRYPOINT RAILS_ENV=$RAILS_ENV bundle exec rails db:create db:migrate db:seed; RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
-CMD bundle exec puma -C config/puma.rb
+CMD RAILS_ENV=$RAILS_ENV bundle exec puma -C config/puma.rb
