@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-alpine3.10
+FROM ruby:2.7.4-alpine3.13
 
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
   sqlite sqlite-dev postgresql postgresql-dev nodejs npm
