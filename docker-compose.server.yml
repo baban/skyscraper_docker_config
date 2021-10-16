@@ -1,18 +1,21 @@
 version: '3.2'
 services:
   nginx: &nginx
+    restart: always
     volumes:
       - "./html_contents/:/usr/share/nginx/html"
       - "./init/nginx/:/etc/nginx/conf.d/"
   publify: &publify
+    restart: always
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
-      - /rails_aoo/tmp/
   mad-wiki: &mad-wiki
+    restart: always
     volumes:
       - "mad_wiki_backup:/ext/"
   mysql: &mysql
+    restart: always
     volumes:
       - "mysql-db:/var/lib/mysql"
 volumes:
