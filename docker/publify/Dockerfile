@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-alpine3.13
+FROM ruby:3.3.0-alpine3.19
 
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
   sqlite sqlite-dev postgresql postgresql-dev nodejs npm
@@ -19,9 +19,9 @@ COPY publify/config /rails_app/config
 COPY publify/public /rails_app/public
 COPY publify/bin /rails_app/bin
 COPY publify/db /rails_app/db
-COPY publify/publify_core /rails_app/publify_core
-COPY publify/publify_textfilter_code /rails_app/publify_textfilter_code
-COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
+#COPY publify/publify_core /rails_app/publify_core
+#COPY publify/publify_textfilter_code /rails_app/publify_textfilter_code
+#COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
 COPY docker/publify/database.yml.mysql /rails_app/config/database.yml
 
 RUN bundle install --path vendor/bundle --binstubs .bundle -j4 --without development test --path vendor/bundle && \
@@ -42,7 +42,7 @@ COPY init/publify/app/mailers/application_mailer.rb /rails_app/app/mailers/
 
 ADD ./publify /rails_app/
 
-RUN bundle exec rails assets:precompile RAILS_ENV=$RAILS_ENV
+RUN bundle exec rails assets:precompile RAILS_ENV=test
 
 EXPOSE 3000
 
