@@ -105,6 +105,10 @@ function do_plugin_action($name)
 		die_message('Plugin init failed: ' . htmlsc($name));
 	}
 
+	// Spam Filter
+	require_once(LIB_DIR . 'spam_filter.php');
+	spam_filter($name);
+
 	$retvar = call_user_func('plugin_' . $name . '_action');
 
 	// Insert a hidden field, supports idenrtifying text enconding
