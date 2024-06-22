@@ -29,7 +29,8 @@
 // ※上記条件にプラス、英語のみのときでURLがあるときだけAkismetで精査
 //define('SPAM_FILTER_COND', '#useragent() or #filename() or #atag() or (#onlyeng() and #urlnum()) or #urlnsbl() or (#onlyeng() and #url() and #akismet())');
 // ※デフォルトではフィルタなし
-define('SPAM_FILTER_COND', '');
+//define('SPAM_FILTER_COND', '');
+define('SPAM_FILTER_COND', '#useragent() or #filename() or #atag() or (#onlyeng() and #urlnum()) or #urlnsbl()');
 
 //// CAPTCHAでのチェックをする条件を指定する
 // ※デフォルトではフィルタなし
@@ -37,7 +38,8 @@ define('SPAM_FILTER_CAPTCHA_COND', '');
 
 //// 各フィルタ共通で設定できる指定
 // URLでのマッチで自ドメインなどの無視すべきURL
-define('SPAM_FILTER_WHITEREG', '/example\.(com|net|jp)/i');
+//define('SPAM_FILTER_WHITEREG', '/example\.(com|net|jp)/i');
+define('SPAM_FILTER_WHITEREG', '/babanba-n\.iobb\.net/i');
 // URLを抽出する際の正規表現
 define('SPAM_FILTER_URLREG', '/(?:(?:https?|ftp|news):\/\/)[\w\/\@\$()!?&%#:;.,~\'=*+-]+/i');
 
@@ -211,7 +213,7 @@ class SpamFilter
     var $message;     // エラー出力用にマッチした条件などを追記していく
     var $dns_get_ns_cache; // dns_get_nsのキャッシュ用
 
-    function SpamFilter($post, $plugin)
+    function __construct($post, $plugin)
     {
         $this->post_data = $post;
         $this->plugin_name = $plugin;
@@ -232,6 +234,7 @@ class SpamFilter
         // フィルタ条件を整形してからチェック掛ける
         $cond = preg_replace('/#/', '$this->', $cond);
         $cond = 'return('. $cond .');';
+
         return eval( $cond );
     }
 

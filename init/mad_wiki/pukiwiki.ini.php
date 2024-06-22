@@ -198,7 +198,7 @@ $pagereading_enable = 0;
 $pagereading_kanji2kana_converter = 'none';
 
 // Specify Kanji encoding to pass data between PukiWiki and the converter
-$pagereading_kanji2kana_encoding = 'EUC-JP'; // Default for Unix
+$pagereading_kanji2kana_encoding = 'UTF-8'; // Default for Unix
 //$pagereading_kanji2kana_encoding = 'SJIS'; // Default for Windows
 
 // Absolute path of the converter (ChaSen)
