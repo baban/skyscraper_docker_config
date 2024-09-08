@@ -5,6 +5,8 @@ services:
       - ./html_contents/:/usr/share/nginx/html
       - ./init/nginx/:/etc/nginx/conf.d
   publify: &publify
+    stdin_open: true
+    tty: true
     volumes:
       - ./themes/:/rails_app/themes
       - ./files/:/rails_app/public/files
