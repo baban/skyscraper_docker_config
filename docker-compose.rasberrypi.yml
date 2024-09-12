@@ -1,0 +1,55 @@
+version: '3.2'
+services:
+  nginx: &nginx
+    restart: always
+    volumes:
+      - "./html_contents/:/usr/share/nginx/html"
+      - "./init/nginx/:/etc/nginx/conf.d/"
+  publify: &publify
+    restart: always
+    volumes:
+      - "themes:/rails_app/themes"
+      - "upload_files:/rails_app/public/files/"
+  mad-wiki: &mad-wiki
+    restart: always
+    volumes:
+      - "mad_wiki_backup:/ext/"
+  mysql: &mysql
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    platform: linux/amd64
+    restart: always
+    volumes:
+      - "mysql-db:/var/lib/mysql"
+volumes:
+  init_conf:
+    driver_opts:
+      type: none
+      device:  /var/site/skyscraper/init
+      o: bind
+  mysql-db:
+    driver_opts:
+      type: none
+      device: /home/vagrant/docker/data/mysql
+      o: bind
+  upload_files:
+    driver_opts:
+      type: none
+      device: /home/vagrant/docker/data/upload_files
+      o: bind
+  html_data:
+    driver_opts:
+      type: none
+      device: /var/site/skyscraper/html_contents 
+      o: bind
+  themes:
+    driver_opts:
+      type: none
+      device: /var/site/skyscraper/themes
+      o: bind
+  mad_wiki_backup:
+    driver_opts:
+      type: none
+      device: /home/vagrant/docker/data/wiki_backup
+      o: bind
