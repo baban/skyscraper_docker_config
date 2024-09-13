@@ -6,6 +6,9 @@ services:
       - "./html_contents/:/usr/share/nginx/html"
       - "./init/nginx/:/etc/nginx/conf.d/"
   publify: &publify
+    build:
+      context: .
+      dockerfile: ./docker/publify/Dockerfile.rasberrypi
     restart: always
     platform: linux/x86_64 
     volumes:
