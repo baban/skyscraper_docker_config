@@ -7,10 +7,15 @@ services:
       - "./init/nginx/:/etc/nginx/conf.d/"
   publify: &publify
     restart: always
+    platform: linux/x86_64 
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
   mad-wiki: &mad-wiki
+    build:
+      context: .
+      dockerfile: ./docker/mad_wiki/Dockerfile.rasberrypi
+    platform: linux/arm/v7 
     restart: always
     volumes:
       - "mad_wiki_backup:/ext/"
@@ -18,7 +23,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
-    platform: linux/amd64
     restart: always
     volumes:
       - "mysql-db:/var/lib/mysql"
