@@ -11,6 +11,8 @@ services:
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
+    environment:
+      QEMU_LD_PREFIX: "/usr/aarch64-linux-gnu/"
   mad-wiki: &mad-wiki
     build:
       context: .

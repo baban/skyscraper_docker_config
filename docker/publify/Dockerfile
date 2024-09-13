@@ -1,4 +1,4 @@
-FROM ruby:3.3.0-alpine3.19
+FROM --platform=linux/arm64 ruby:3.3.0-alpine3.19
 
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
   sqlite sqlite-dev postgresql postgresql-dev nodejs npm
@@ -24,6 +24,7 @@ COPY publify/db /rails_app/db
 #COPY publify/publify_amazon_sidebar /rails_app/publify_amazon_sidebar
 COPY docker/publify/database.yml.mysql /rails_app/config/database.yml
 
+RUN bundle config set force_ruby_platform true
 RUN bundle install --path vendor/bundle --binstubs .bundle -j4 --without development test --path vendor/bundle && \
     find vendor/bundle/ruby -path '*/gems/*/ext/*/Makefile' -exec dirname {} \; | xargs -n1 -P$(nproc) -I{} make -C {} clean
 
