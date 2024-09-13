@@ -10,7 +10,6 @@ services:
       context: .
       dockerfile: ./docker/publify/Dockerfile.rasberrypi
     restart: always
-    platform: linux/x86_64 
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
