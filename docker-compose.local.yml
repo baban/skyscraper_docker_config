@@ -1,9 +1,7 @@
-version: '3.2'
 services:
   nginx: &nginx
     volumes:
       - ./html_contents/:/usr/share/nginx/html
-      - ./init/nginx/:/etc/nginx/conf.d
   publify: &publify
     stdin_open: true
     tty: true
@@ -12,7 +10,6 @@ services:
       - ./files/:/rails_app/public/files
   mad-wiki: &mad-wiki
     volumes:
-       - ./wiki_data/:/ext
        - ./init/mad_wiki/skin/:/var/www/skin
   mysql: &mysql
     volumes:
@@ -22,4 +19,3 @@ volumes:
     driver: local
   wiki_data:
     driver: local
-    

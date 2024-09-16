@@ -1,4 +1,3 @@
-version: '3.2'
 services:
   nginx: &nginx
     build:
@@ -8,10 +7,10 @@ services:
       - 80:80
     depends_on:
       - publify
-      - mad-wiki
+      - mad-wiki-nginx
     links:
       - publify
-      - mad-wiki
+      - mad-wiki-nginx
   publify: &publify
     build:
       context: .
@@ -29,12 +28,22 @@ services:
       options:
         max-size: 10m
         max-file: "3"
+  mad-wiki-nginx: &mad-wiki-nginx
+    build:
+      context: .
+      dockerfile: ./docker/mad_wiki_nginx/Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - mad-wiki
+    links:
+      - mad-wiki
   mad-wiki: &mad-wiki
     build:
       context: .
       dockerfile: ./docker/mad_wiki/Dockerfile
     ports:
-      - 8080:80
+      - "9000:9000"
     logging:
       driver: "json-file" # defaults if not specified
       options:
@@ -44,7 +53,7 @@ services:
     image: mysql:5.7.22
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --max_allowed_packet=32M
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: publify
       MYSQL_ROOT_PASSWORD: svc2027

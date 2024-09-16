@@ -15,14 +15,8 @@ services:
       - "upload_files:/rails_app/public/files/"
     environment:
       QEMU_LD_PREFIX: "/usr/aarch64-linux-gnu/"
+  mad-wiki-nginx: &mad-wiki-nginx
   mad-wiki: &mad-wiki
-    build:
-      context: .
-      dockerfile: ./docker/mad_wiki/Dockerfile.rasberrypi
-    platform: linux/arm/v7 
-    restart: always
-    volumes:
-      - "mad_wiki_backup:/ext/"
   mysql: &mysql
     build:
       context: .
