@@ -20,11 +20,10 @@ COPY init/mad_wiki/attach.inc.php /var/www/html/plugin/
 COPY init/mad_wiki/skin /var/www/html/skin/
 
 # spamフィルター導入
-#COPY init/mad_wiki/dns_get_ns.cache /var/www/html/
-#COPY init/mad_wiki/delegated-apnic-latest /var/www/html/
-#COPY init/mad_wiki/lib/ /var/www/html/lib
-#COPY init/mad_wiki/Net/ /var/www/html/Net
-#RUN chmod 777 /var/www/html/delegated-apnic-latest
+COPY init/mad_wiki/dns_get_ns.cache /var/www/html/
+COPY init/mad_wiki/delegated-apnic-latest /var/www/html/
+COPY init/mad_wiki/Net/ /var/www/html/Net
+RUN chmod 777 /var/www/html/delegated-apnic-latest
 
 # rasberry piで読み込み失敗したので追加
 RUN chmod 777 /var/www/html/attach/

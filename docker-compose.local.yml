@@ -10,7 +10,13 @@ services:
       - ./files/:/rails_app/public/files
   mad-wiki: &mad-wiki
     volumes:
-       - ./init/mad_wiki/skin/:/var/www/skin
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - ./wiki_data/attach:/var/www/html/attach
+      - ./wiki_data/backup:/var/www/html/backup
+      - ./wiki_data/cache:/var/www/html/cache
+      - ./wiki_data/diff:/var/www/html/diff
+      - ./wiki_data/wiki:/var/www/html/wiki
   mysql: &mysql
     volumes:
       - ./mysql_data:/var/lib/mysql
