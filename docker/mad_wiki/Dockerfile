@@ -25,3 +25,11 @@ COPY init/mad_wiki/skin /var/www/html/skin/
 #COPY init/mad_wiki/lib/ /var/www/html/lib
 #COPY init/mad_wiki/Net/ /var/www/html/Net
 #RUN chmod 777 /var/www/html/delegated-apnic-latest
+
+# rasberry piで読み込み失敗したので追加
+RUN chmod 777 /var/www/html/attach/
+RUN chmod 777 /var/www/html/backup/
+RUN chmod 777 /var/www/html/cache/
+RUN chmod 777 /var/www/html/diff/
+RUN chmod 777 /var/www/html/wiki/
+
