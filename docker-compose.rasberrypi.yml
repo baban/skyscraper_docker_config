@@ -17,6 +17,8 @@ services:
       QEMU_LD_PREFIX: "/usr/aarch64-linux-gnu/"
   mad-wiki-nginx: &mad-wiki-nginx
   mad-wiki: &mad-wiki
+    volumes:
+     - "mad_wiki_backup:/ext/"
   mysql: &mysql
     build:
       context: .
@@ -53,5 +55,5 @@ volumes:
   mad_wiki_backup:
     driver_opts:
       type: none
-      device: /home/vagrant/docker/data/wiki_backup
+      device: /home/vagrant/docker/data/wiki_backup/data
       o: bind

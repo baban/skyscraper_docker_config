@@ -28,6 +28,7 @@ RUN chmod 777 /var/www/html/delegated-apnic-latest
 # RUN mv attach /ext/; chmod 777 /ext/attach/; ln -s /ext/attach/
 RUN mv backup /ext/; chmod 777 /ext/backup/; ln -s /ext/backup/
 RUN mv cache  /ext/;  chmod 777 /ext/cache/; ln -s /ext/cache/
+RUN mv counter  /ext/;  chmod 777 /ext/counter/; ln -s /ext/counter/
 RUN mv diff  /ext/;  chmod 777 /ext/diff/; ln -s /ext/diff/
 RUN mv wiki  /ext/;  chmod 777 /ext/wiki/; ln -s /ext/wiki/
 
