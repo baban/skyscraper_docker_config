@@ -1,4 +1,4 @@
-FROM php:8.1.18-fpm
+FROM php:8.1.8-fpm
 LABEL org.opencontainers.image.authors="babanba-n <babanba.n@gmail.com>" \
     org.opencontainers.image.source="https://github.com/baban/skyscraper_docker_config"
 
@@ -16,8 +16,8 @@ VOLUME /ext
 COPY init/mad_wiki/pukiwiki-1.5.4_utf8/ /var/www/html
 
 COPY init/mad_wiki/pukiwiki.ini.php /var/www/html/
+COPY init/mad_wiki/lib/file.php /var/www/html/lib/
 COPY init/mad_wiki/attach.inc.php /var/www/html/plugin/
-COPY init/mad_wiki/skin /var/www/html/skin/
 
 # spamフィルター導入
 COPY init/mad_wiki/dns_get_ns.cache /var/www/html/
@@ -25,10 +25,9 @@ COPY init/mad_wiki/delegated-apnic-latest /var/www/html/
 COPY init/mad_wiki/Net/ /var/www/html/Net
 RUN chmod 777 /var/www/html/delegated-apnic-latest
 
-# rasberry piで読み込み失敗したので追加
-RUN chmod 777 /var/www/html/attach/
-RUN chmod 777 /var/www/html/backup/
-RUN chmod 777 /var/www/html/cache/
-RUN chmod 777 /var/www/html/diff/
-RUN chmod 777 /var/www/html/wiki/
+# RUN mv attach /ext/; chmod 777 /ext/attach/; ln -s /ext/attach/
+RUN mv backup /ext/; chmod 777 /ext/backup/; ln -s /ext/backup/
+RUN mv cache  /ext/;  chmod 777 /ext/cache/; ln -s /ext/cache/
+RUN mv diff  /ext/;  chmod 777 /ext/diff/; ln -s /ext/diff/
+RUN mv wiki  /ext/;  chmod 777 /ext/wiki/; ln -s /ext/wiki/
 
