@@ -23,6 +23,7 @@ services:
       - mysql
     environment:
       RAILS_ENV: production
+      BUILDPLATFORM: "x86_64"
     logging:
       driver: "json-file" # defaults if not specified
       options:

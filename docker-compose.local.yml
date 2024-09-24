@@ -8,6 +8,8 @@ services:
     volumes:
       - ./themes/:/rails_app/themes
       - ./files/:/rails_app/public/files
+    environment:
+      BUILDPLATFORM: "x86_64"
   mad-wiki: &mad-wiki
     volumes:
       - /etc/passwd:/etc/passwd:ro

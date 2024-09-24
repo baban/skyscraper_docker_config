@@ -10,6 +10,8 @@ services:
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
+    environment:
+      BUILDPLATFORM: "x86_64"
   mad-wiki: &mad-wiki
     restart: always
     volumes:

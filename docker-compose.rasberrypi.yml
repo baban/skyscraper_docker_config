@@ -6,15 +6,13 @@ services:
       - "./html_contents/:/usr/share/nginx/html"
       - "./init/nginx/:/etc/nginx/conf.d/"
   publify: &publify
-    build:
-      context: .
-      dockerfile: ./docker/publify/Dockerfile.rasberrypi
     restart: always
     volumes:
       - "themes:/rails_app/themes"
       - "upload_files:/rails_app/public/files/"
     environment:
       QEMU_LD_PREFIX: "/usr/aarch64-linux-gnu/"
+      BUILDPLATFORM: "linux/arm64"
   mad-wiki-nginx: &mad-wiki-nginx
   mad-wiki: &mad-wiki
     volumes:
