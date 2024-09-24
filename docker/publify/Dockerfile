@@ -25,6 +25,7 @@ COPY publify/db /rails_app/db
 COPY docker/publify/database.yml.mysql /rails_app/config/database.yml
 COPY publify/ /rails_app/publify/
 
+RUN bundle config set force_ruby_platform true
 RUN bundle lock --add-platform ruby
 RUN bundle install --path vendor/bundle --binstubs .bundle --without development test && \
     find vendor/bundle/ruby -path '*/gems/*/ext/*/Makefile' -exec dirname {} \; | xargs -n1 -P$(nproc) -I{} make -C {} clean
