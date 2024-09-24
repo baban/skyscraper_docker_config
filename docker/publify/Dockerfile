@@ -1,4 +1,4 @@
-FROM ruby:3.3-alpine3.18
+FROM --platform=${BUILDPLATFORM} ruby:3.3-alpine3.18
 
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
   sqlite sqlite-dev postgresql postgresql-dev nodejs npm
@@ -40,10 +40,7 @@ ADD ./publify /rails_app/
 
 COPY docker/publify/master.key /rails_app/config/
 COPY docker/publify/credentials.yml.enc /rails_app/config/
-#COPY docker/publify/app/assets/config /rails_app/app/assets/config
-#COPY docker/publify/config/application.rb /rails_app/config
 COPY docker/publify/config/initializers/session_store.rb /rails_app/config/initializers/session_store.rb
-#COPY init/publify/app/mailers/application_mailer.rb /rails_app/app/mailers/
 
 RUN bundle exec rails assets:precompile RAILS_ENV=test
 
