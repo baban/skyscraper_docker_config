@@ -19,11 +19,17 @@ git clone https://github.com/baban/skyscraper_publify_theme.git themes/baban
 ### Windows環境
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
 ```
 
-### 本番環境
+### 本番環境(x86)
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.server.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.server.yml up -d
+```
+
+### Rasberry Pi環境
+
+```
+docker compose -f docker-compose.yml -f docker-compose.rasberrypi.yml up -d
 ```
