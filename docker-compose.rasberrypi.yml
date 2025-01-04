@@ -13,6 +13,7 @@ services:
     environment:
       QEMU_LD_PREFIX: "/usr/aarch64-linux-gnu/"
       BUILDPLATFORM: "linux/arm64"
+      RAILS_ENV: production
   mad-wiki-nginx: &mad-wiki-nginx
   mad-wiki: &mad-wiki
     volumes:
