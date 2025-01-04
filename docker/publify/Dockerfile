@@ -42,7 +42,7 @@ ADD ./publify /rails_app/
 COPY docker/publify/master.key /rails_app/config/
 COPY docker/publify/credentials.yml.enc /rails_app/config/
 COPY docker/publify/config/initializers/session_store.rb /rails_app/config/initializers/session_store.rb
-COPY docker/publify/config/envirnoments/production.rb /rails_app/config/envirnoments/production.rb
+COPY docker/publify/config/application.rb /rails_app/config/application.rb
 
 RUN bundle exec rails assets:precompile RAILS_ENV=test
 
