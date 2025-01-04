@@ -8,6 +8,7 @@ services:
     volumes:
       - ./themes/:/rails_app/themes
       - ./files/:/rails_app/public/files
+      - ~/.ssh:/root/.ssh:ro  # ホストのSSHディレクトリをコンテナにマウント (読み取り専用)
     environment:
       BUILDPLATFORM: "x86_64"
   mad-wiki: &mad-wiki
