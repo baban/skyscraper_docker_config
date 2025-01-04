@@ -2,7 +2,7 @@
 
 こちらのサイトの、起動方法です
 
-http://babanba-n.iobb.net/blog/
+http://babanba-n.mydns.jp/
 
 ## 環境構築手順
 

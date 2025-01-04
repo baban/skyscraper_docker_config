@@ -12,6 +12,7 @@ RUN mkdir -p /rails_app
 WORKDIR /rails_app
 
 COPY publify/Gemfile /rails_app
+COPY publify/Gemfile.lock /rails_app
 
 COPY publify/Rakefile /rails_app/Rakefile
 COPY publify/config.ru /rails_app/config.ru
@@ -27,8 +28,9 @@ COPY publify/ /rails_app/publify/
 
 RUN bundle config set force_ruby_platform true
 RUN bundle lock --add-platform ruby
-RUN bundle install --path vendor/bundle --binstubs .bundle --without development test && \
+RUN bundle install --path vendor/bundle --binstubs .bundle && \
     find vendor/bundle/ruby -path '*/gems/*/ext/*/Makefile' -exec dirname {} \; | xargs -n1 -P$(nproc) -I{} make -C {} clean
+RUN bundle update
 
 ARG RAILS_ENV
 ENV RAILS_ENV $RAILS_ENV
