@@ -25,7 +25,7 @@ COPY init/mad_wiki/delegated-apnic-latest /var/www/html/
 COPY init/mad_wiki/Net/ /var/www/html/Net
 RUN chmod 777 /var/www/html/delegated-apnic-latest
 
-# RUN mv attach /ext/; chmod 777 /ext/attach/; ln -s /ext/attach/
+RUN mv attach /ext/; chmod 777 /ext/attach/; ln -s /ext/attach/
 RUN mv backup /ext/; chmod 777 /ext/backup/; ln -s /ext/backup/
 RUN mv cache  /ext/;  chmod 777 /ext/cache/; ln -s /ext/cache/
 RUN mv counter  /ext/;  chmod 777 /ext/counter/; ln -s /ext/counter/
