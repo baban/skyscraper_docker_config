@@ -823,7 +823,9 @@ class AttachFiles
 				$files[$file] = & $this->files[$file][0];
 			}
 		}
-		uasort($files, array('AttachFile', 'datecomp'));
+		$instance_of_AttachFile = new AttachFile($this->page, $file, $age);
+		uasort($files, array($instance_of_AttachFile, 'datecomp'));
+		//uasort($files, array('AttachFile', 'datecomp'));
 		foreach (array_keys($files) as $file) {
 			$ret .= $files[$file]->toString(TRUE, TRUE) . ' ';
 		}
