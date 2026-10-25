@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 # ==============================================================================
 # babanba-n.mydns.jp Let's Encrypt SSL証明書 初期発行スクリプト
 # ==============================================================================
 # 使い方:
+#   sh ./init-letsencrypt.sh [メールアドレス] [COMPOSE_OPTION]
+#   または
 #   ./init-letsencrypt.sh [メールアドレス] [COMPOSE_OPTION]
 #
 # 例 (本番サーバー x86):
@@ -12,7 +14,7 @@
 #   ./init-letsencrypt.sh user@example.com "-f docker-compose.yml -f docker-compose.rasberrypi.yml"
 # ==============================================================================
 
-set -euo pipefail
+set -eu
 
 domain="babanba-n.mydns.jp"
 rsa_key_size=4096
@@ -23,7 +25,8 @@ compose_opt="${2:-}"
 
 # メールアドレスの確認
 if [ -z "$email" ]; then
-  read -p "Let's Encrypt 登録用のメールアドレスを入力してください: " email
+  printf "Let's Encrypt 登録用のメールアドレスを入力してください: "
+  read email
 fi
 
 if [ -z "$email" ]; then
@@ -37,7 +40,8 @@ if [ -z "$compose_opt" ]; then
   echo "  1) 本番サーバー (docker-compose.server.yml)"
   echo "  2) Raspberry Pi (docker-compose.rasberrypi.yml)"
   echo "  3) 標準 (docker-compose.yml のみ)"
-  read -p "選択 [1-3] (デフォルト: 1): " env_choice
+  printf "選択 [1-3] (デフォルト: 1): "
+  read env_choice
   case "${env_choice:-1}" in
     1) compose_opt="-f docker-compose.yml -f docker-compose.server.yml" ;;
     2) compose_opt="-f docker-compose.yml -f docker-compose.rasberrypi.yml" ;;
@@ -57,7 +61,8 @@ echo ""
 
 # 既存証明書のチェック
 if [ -d "$data_path/conf/live/$domain" ]; then
-  read -p "既存の証明書が見つかりました。上書き再取得しますか？ (y/N): " decision
+  printf "既存の証明書が見つかりました。上書き再取得しますか？ (y/N): "
+  read decision
   if [ "$decision" != "Y" ] && [ "$decision" != "y" ]; then
     echo "処理を中断しました。"
     exit 0
