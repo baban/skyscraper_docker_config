@@ -1,7 +1,7 @@
-FROM --platform=${BUILDPLATFORM} ruby:3.3-alpine3.18
+FROM --platform=${BUILDPLATFORM} ruby:3.3-alpine
 
 RUN apk --update --no-cache add shadow sudo tzdata execline vim busybox-suid git imagemagick mariadb-connector-c-dev alpine-sdk \
-  sqlite sqlite-dev postgresql postgresql-dev nodejs npm
+  sqlite sqlite-dev postgresql postgresql-dev nodejs npm linux-headers libffi-dev
 
 RUN apk add --update --no-cache tzdata && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
@@ -30,7 +30,6 @@ RUN bundle config set force_ruby_platform true
 RUN bundle lock --add-platform ruby
 RUN bundle install --path vendor/bundle --binstubs .bundle && \
     find vendor/bundle/ruby -path '*/gems/*/ext/*/Makefile' -exec dirname {} \; | xargs -n1 -P$(nproc) -I{} make -C {} clean
-RUN bundle update
 
 ARG RAILS_ENV
 ENV RAILS_ENV $RAILS_ENV
