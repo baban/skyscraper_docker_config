@@ -113,7 +113,7 @@ default  :
 $page_title = 'MadWiki -Imagination-';
 
 // Specify PukiWiki URL (default: auto)
-$script = 'http://babanba-n.mydns.jp/wiki/';
+$script = 'https://babanba-n.mydns.jp/wiki/';
 
 // Shorten $script: Cut its file name (default: not cut)
 //$script_directory_index = 'index.php';
@@ -122,7 +122,7 @@ $script = 'http://babanba-n.mydns.jp/wiki/';
 $modifier = 'anonymous';
 
 // Site admin's Web page (CHANGE THIS)
-$modifierlink = 'http://babanba-n.mydns.jp/wiki/';
+$modifierlink = 'https://babanba-n.mydns.jp/wiki/';
 
 // Default page name
 $defaultpage  = 'FrontPage';     // Top / Default page
