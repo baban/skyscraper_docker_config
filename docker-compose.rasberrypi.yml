@@ -14,6 +14,7 @@ services:
       QEMU_LD_PREFIX: "/usr/aarch64-linux-gnu/"
       BUILDPLATFORM: "linux/arm64"
       RAILS_ENV: production
+      MARIADB_TLS_DISABLE_PEER_VERIFICATION: "1"
   mad-wiki-nginx: &mad-wiki-nginx
   mad-wiki: &mad-wiki
     volumes:
